@@ -25,6 +25,8 @@ do
 	compileLanguage "Deckblatt" "$language"
 	compileLanguage "Lebenslauf" "$language"
 	pdfname="pdfname$language"
-	pdftk "Anschreiben/build/$language/document.pdf" "Deckblatt/build/"$language"/document.pdf" "Lebenslauf/build/$language/document.pdf" Anhang/document.pdf cat output "build/$language/${!pdfname}"
+	pdftkOutputDir="build/$language"
+	mkdir -p "$pdftkOutputDir"
+	pdftk "Anschreiben/build/$language/document.pdf" "Deckblatt/build/"$language"/document.pdf" "Lebenslauf/build/$language/document.pdf" Anhang/document.pdf cat output "$pdftkOutputDir/${!pdfname}"
 	evince "build/$language/${!pdfname}" &
 done
