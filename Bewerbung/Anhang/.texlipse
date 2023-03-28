@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Wed Apr 03 10:58:42 CEST 2019
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=document.tex
+outputFile=Anhang.pdf
+langSpell=de
+markDer=true
+srcDir=

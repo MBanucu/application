@@ -1,0 +1,78 @@
+\NeedsTeXFormat{LaTeX2e}
+\documentclass[a4paper]{curve}
+\usepackage[utf8]{inputenc}
+\newcommand\versionLanguageStart{}
+\newcommand\versionLanguageEnd{}
+\versionLanguageStart%001
+	\usepackage[english]{babel}
+\versionLanguageEnd
+\usepackage[nohead,nofoot,hmargin=1.5cm,vmargin=1.5cm]{geometry}
+
+%Anhang Originaldateien
+	\usepackage{pdfpages}
+
+\usepackage{color}
+\usepackage[colorlinks]{hyperref}
+\usepackage{marvosym}
+\usepackage{fontawesome}
+\definecolor{darkblue}{rgb}{0,0,.5}
+\hypersetup{colorlinks=true, breaklinks=true, linkcolor=darkblue, menucolor=darkblue, urlcolor=darkblue}
+
+\usepackage{textcomp}
+\makeatletter
+\newcommand{\co}{%
+  \check@mathfonts
+  \raisebox{.85ex}{\fontsize{\sf@size}{\z@}\selectfont c}%
+  \kern-.1em\raisebox{.2ex}{\textfractionsolidus}\kern-.1em
+  {\fontsize{\sf@size}{\z@}\selectfont o}%
+}
+\makeatother
+\usepackage{import}
+\import{generated/}{address.tex}
+\leftheader
+{
+	\textbf{\fullName}\\
+	\address\\
+	\par
+	\Mobilefone\ \mobilephone\\
+	\Email\ \fromemailhref\\
+	\faXing\ \xing\\
+	\par
+\versionLanguageStart%002
+	single, no children
+\versionLanguageEnd
+}
+\rightheader{\ }
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+
+\photo[r]{pictures/20190501 - ich - cropped - 98percent}
+\photoscale{0.2}
+\titlefont{\fontfamily{pag}\selectfont\bfseries\Huge}
+\versionLanguageStart%003
+\title{CV}
+\versionLanguageEnd
+\subtitlefont{\fontfamily{pag}\selectfont\itshape\huge}
+%\subtitle{eines Studenten}
+\rubricfont{\fontfamily{pag}\selectfont\bfseries\Large}
+\rubricalignment{cl}
+\subrubricfont{\fontfamily{pag}\selectfont\bfseries\itshape\large}
+\keyfont{\fontfamily{pag}\selectfont\bfseries}
+\usepackage{pifont}
+\prefix{\ding{52}}
+\usepackage{color}
+\usepackage{calc}
+\begin{document}
+	%Setzt die Titelei des CV
+	\makeheaders[t]
+	~\\~\\
+	\maketitle
+	~\\
+	\makerubric{experience}
+	\makerubric{education_experience}
+	\makerubric{education}
+ 	~\\
+ 	\makerubric{hobby}
+\end{document}
+\label{mailto:\email}

@@ -1,0 +1,9 @@
+\versionLanguageStart%001
+	\ifthenelse{\equal{#1}{Mr}}
+	{\renewcommand{\genderReceiver}{Mr.}\renewcommand{\dear}{Dear}}
+	{%
+		\ifthenelse{\equal{#1}{Mrs}}
+		{\renewcommand{\genderReceiver}{Mrs.}\renewcommand{\dear}{Dear}}
+		{\renewcommand{\genderReceiver}{}\renewcommand{\dear}{Dear Sir or Madam}}
+	}%
+\versionLanguageEnd

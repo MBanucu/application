@@ -1,0 +1,124 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\pagestyle{empty}
+\newcommand\versionLanguageStart{}
+\newcommand\versionLanguageEnd{}
+\versionLanguageStart%001
+	\usepackage[english]{babel}
+\versionLanguageEnd
+\usepackage[nodayofweek,level]{datetime}
+
+\usepackage{xcolor}
+\usepackage[colorlinks]{hyperref}
+\makeatletter
+    \g@addto@macro\UrlBreaks
+    {%
+        \do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j%
+        \do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t%
+        \do\u\do\v\do\w\do\x\do\y\do\z\do\&\do\1\do\2\do\3%
+        \do\4\do\5\do\6\do\7\do\8\do\9\do\0\do\/\do\.%
+    }
+    \g@addto@macro\UrlSpecials
+    {%
+        \do\/{\mbox{\UrlFont/}\hskip 0pt plus 10pt}%
+    }
+\makeatother
+\definecolor{darkblue}{rgb}{0,0,.5}
+\hypersetup{colorlinks=true, breaklinks=true, linkcolor=darkblue, menucolor=darkblue, urlcolor=darkblue}
+
+\usepackage{marvosym}
+\usepackage{datetime}
+%\usepackage{fontspec}
+%\setmainfont{Arial}
+\usepackage{uarial}
+\usepackage{tikz,mwe}
+\definecolor{cvgreen}{HTML}{92D14F}
+\definecolor{cvgray}{HTML}{D8E4BE}
+\definecolor{cvtext}{HTML}{92909B}
+\usetikzlibrary{shadows}
+\usepackage{lmodern}% http://ctan.org/pkg/lm
+\usepackage{relsize}
+\renewcommand\RSlargest{500pt}
+\tikzset
+{
+	fontscale/.style = {font=\relsize{#1}}
+}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{textcomp}
+\makeatletter
+\newcommand{\co}{%
+  \check@mathfonts
+  \raisebox{.85ex}{\fontsize{\sf@size}{\z@}\selectfont c}%
+  \kern-.1em\raisebox{.2ex}{\textfractionsolidus}\kern-.1em
+  {\fontsize{\sf@size}{\z@}\selectfont o}%
+}
+\makeatother
+\usepackage{import}
+\import{generated/}{address.tex}
+
+\newdate{startDate}{23}{01}{2021}
+
+\begin{document}
+	\begin{tikzpicture}[remember picture,overlay]
+		% green bar
+		\fill[cvgreen] (current page.north west) rectangle ([xshift=5cm]current page.south west);
+		% gray bar
+		\fill[cvgray] ([yshift=-4cm]current page.north west) rectangle ([yshift=-10cm]current page.north east);
+		% title and date
+		\node[cvtext,right] at ([yshift=-6cm]current page.north west) [fontscale=7]
+		{
+\versionLanguageStart%002
+		   	\bfseries Application as developer
+\versionLanguageEnd		};
+		\node[cvtext,right] at ([yshift=-8cm]current page.north west) [fontscale=7]
+		{
+\versionLanguageStart%003
+		   	\bfseries in full- or part-time
+\versionLanguageEnd
+		};
+		\node[cvtext,above left] at ([xshift=-1cm,yshift=-9.5cm]current page.north east)
+		{
+\versionLanguageStart%004
+			\huge\bfseries starting asap%\displaydate{startDate}
+\versionLanguageEnd
+		};
+		% cover photo
+		\node[inner sep=0pt,below right] (image) at ([xshift=5cm,yshift=-10cm]current page.north west)
+		{
+			\includegraphics[width=7cm]{pictures/26345_002 - cropped - 98percent}
+		};
+		% name and address
+		\node[fill=white,drop shadow,align=center,text width=6.4cm,inner sep=0.3cm,below] (name) at (image.south)
+		{
+			\LARGE \fullName
+		};
+		\node[text width=15cm,inner sep=0.3cm,below right] at (name.south west)
+		{
+			\Large\obeylines%
+			\address
+			\begin{tabbing}
+				asdf \= asdf \kill
+				\Mobilefone \> \mobilephone\\
+				\Email \> \fromemailhref\\
+			\end{tabbing}
+		};
+		% attachments
+		\node[white,text width=5cm,inner sep=0.3cm,above right] at ([yshift=1cm]current page.south west)
+		{
+			\large\obeylines%
+\versionLanguageStart%005
+			\textbf{Content:}
+			CV
+			B.Sc. certificate
+			Vector work certificate
+			LMT work certificate
+\versionLanguageEnd%			Pr�fungsnoten
+%			F�hrerschein
+%			Fahrzeugbrief
+%			Karate Urkunden
+		};
+	\end{tikzpicture}
+\end{document}

@@ -1,0 +1,103 @@
+%\usepackage{import}
+\newcommand{\newAddress}[3]{%
+	\expandafter\newcommand\csname address#3Street\endcsname{#1}%
+	\expandafter\newcommand\csname address#3PLZ\endcsname{#2}%
+	\expandafter\newcommand\csname address#3Place\endcsname{#3}%
+}
+\usepackage{xkeyval}
+\makeatletter
+\define@key{newNamedAddress}{name}{\def\name{#1}}
+\define@key{newNamedAddress}{street}{\def\street{#1}}
+\newcommand{\newNamedAddress}[1][]{%
+	\setkeys{newNamedAddress}{#1}{%
+		\newcommand\addressasdfStreet{\street}%
+%		\expandafter\newcommand\csname address\name Street\endcsname{\street}%
+	}%
+}
+\makeatother
+
+\newNamedAddress[name=asdf,street=streetName]
+
+\newAddress{Obernhäuser Str. 16}{75217}{Birkenfeld}
+\newAddress{Löwenberger Str. 2}{10315}{Berlin}
+\newAddress{Fornbach 14}{96472}{Rödental}
+\newAddress{In der Strieth 28}{64395}{Brensbach}
+
+%\newcommand{\addressBrensbachStreet}{In der Strieth 28}
+%\newcommand{\addressBrensbachPLZ}{64395}
+%\newcommand{\addressBrensbachPlace}{Brensbach}
+
+\newcommand{\useAddress}{Brensbach}
+\newcommand{\addressStreet}{\csname address\useAddress Street\endcsname}
+\newcommand{\addressPLZ}{\csname address\useAddress PLZ\endcsname}
+\newcommand{\addressPlace}{\csname address\useAddress Place\endcsname}
+\newcommand{\address}{%
+	\addressStreet\\
+	\addressPLZ\ \addressPlace%
+}
+
+\newcommand{\prename}{Michael}
+\newcommand{\surname}{Banucu}
+\newcommand{\fullName}{\prename\ \surname}
+
+\newcommand{\fromemail}{michael.banucu@googlemail.com}
+\newcommand{\fromemailhref}{\href{mailto:\fromemail}{\fromemail}}
+
+\newcommand{\mobilephone}{0176/41269132}
+\newcommand{\xing}{\href{https://www.xing.com/profile/Michael_Banucu}{www.xing.com/profile/Michael\_Banucu}}
+
+\usepackage{ifthen}
+\newcommand{\adaptGender}[1]{%
+	\ifthenelse{\equal{#1}{Mr}}
+	{\renewcommand{\genderReceiver}{%
+\versionLanguageStart%Mr
+		Mr.%
+\versionLanguageEnd%
+	}\renewcommand{\dear}{%
+\versionLanguageStart%DearMr
+		Dear%
+\versionLanguageEnd%
+	}}
+	{%
+		\ifthenelse{\equal{#1}{Mrs}}
+		{\renewcommand{\genderReceiver}{%
+\versionLanguageStart%Mrs
+			Mrs.%
+\versionLanguageEnd%
+		}\renewcommand{\dear}{%
+\versionLanguageStart%DearMrs
+			Dear%
+\versionLanguageEnd%
+		}}
+		{\renewcommand{\genderReceiver}{}\renewcommand{\dear}{%
+\versionLanguageStart%DearMrs
+			Dear Sir or Madam%
+\versionLanguageEnd%
+		}}
+	}%
+}
+
+\newcommand{\genderReceiver}{Mr.}
+\newcommand{\dear}{Dear}
+\subimport{./receiver/}{parameters.tex}
+
+\usepackage{xparse}
+\ExplSyntaxOn
+%	\NewDocumentCommand\companyReceiver{}{Intercon\ Solutions\ GmbH}
+	\clist_new:N \l_application_joinList_clist
+	\cs_new:Nn \application_joinList:nnnn {
+		\clist_set:Nn \l_application_joinList_clist {#1,#2,#3}
+		\clist_if_empty:NTF \l_application_joinList_clist {}{\clist_use:Nn \l_application_joinList_clist {\ }#4}
+	}
+	\cs_generate_variant:Nn \application_joinList:nnnn {VVVn}
+	\NewDocumentCommand\joinList{mmmm}{
+		\application_joinList:VVVn {#1}{#2}{#3}{#4}
+	}
+\ExplSyntaxOff
+
+\newcommand{\addressReceiver}{%
+	\joinList{\companyReceiver}{\empty}{\empty}{\\}
+	\joinList{\genderReceiver}{\prenameReceiver}{\surnameReceiver}{\\}
+	\addressStreetReceiver\\
+	\addressPLZReceiver\ \addressPlaceReceiver%
+}

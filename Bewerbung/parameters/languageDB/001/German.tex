@@ -1,0 +1,8 @@
+	\ifthenelse{\equal{#1}{Mr}}
+	{\renewcommand{\genderReceiver}{Herr}\renewcommand{\dear}{Sehr geehrter}}
+	{%
+		\ifthenelse{\equal{#1}{Mrs}}
+		{\renewcommand{\genderReceiver}{Frau}\renewcommand{\dear}{Sehr geehrte}}%
+		{\renewcommand{\genderReceiver}{}\renewcommand{\dear}{Sehr geehrte Damen und Herren}}
+	}%
+\versionLanguageEnd
