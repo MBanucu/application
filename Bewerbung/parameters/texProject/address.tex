@@ -30,7 +30,12 @@
 \newcommand{\useAddress}{Brensbach}
 \newcommand{\addressStreet}{\csname address\useAddress Street\endcsname}
 \newcommand{\addressPLZ}{\csname address\useAddress PLZ\endcsname}
-\newcommand{\addressPlace}{\csname address\useAddress Place\endcsname}
+\newcommand{\addressPlace}{%
+	\csname address\useAddress Place\endcsname%
+\versionLanguageStart%002
+	, Germany%
+\versionLanguageEnd%
+}
 \newcommand{\address}{%
 	\addressStreet\\
 	\addressPLZ\ \addressPlace%
