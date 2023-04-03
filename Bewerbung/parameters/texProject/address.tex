@@ -103,6 +103,6 @@
 \newcommand{\addressReceiver}{%
 	\joinList{\companyReceiver}{\empty}{\empty}{\\}
 	\joinList{\genderReceiver}{\prenameReceiver}{\surnameReceiver}{\\}
-	\addressStreetReceiver\\
-	\addressPLZReceiver\ \addressPlaceReceiver%
+	\joinList{\addressStreetReceiver}{\empty}{\empty}{\\}
+	\joinList{\addressPLZReceiver}{\addressPlaceReceiver}{\empty}{\\}
 }
