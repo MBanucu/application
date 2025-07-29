@@ -4,7 +4,7 @@ function compileLanguage {
 	project=$1
 	language=$2
 	cp -a "parameters/build/$language/." "$project/texProject/generated/"
-	python3.11 translator.py "$language" "$project"
+	python translator.py "$language" "$project"
 	cd "$project/build/$language"
 	latexmk -pdf document
 	cd ../../..
