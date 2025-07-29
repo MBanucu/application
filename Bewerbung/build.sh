@@ -20,7 +20,7 @@ pdfnameEnglish="$eudate Application Banucu Michael.pdf"
 langauges=( "German" "English" )
 for language in "${langauges[@]}"
 do
-	python3.11 translator.py "$language" "parameters"
+	python translator.py "$language" "parameters"
 	compileLanguage "Anschreiben" "$language"
 	compileLanguage "Deckblatt" "$language"
 	compileLanguage "Lebenslauf" "$language"
