@@ -28,5 +28,5 @@ do
 	pdftkOutputDir="build/$language"
 	mkdir -p "$pdftkOutputDir"
 	pdftk "Anschreiben/build/$language/document.pdf" "Deckblatt/build/"$language"/document.pdf" "Lebenslauf/build/$language/document.pdf" Anhang/document.pdf cat output "$pdftkOutputDir/${!pdfname}"
-	gnome-terminal -- bash -c "evince \"build/$language/${!pdfname}\""
+	xfce4-terminal --command "evince \"build/$language/${!pdfname}\""
 done
