@@ -1,22 +1,8 @@
-%\usepackage{import}
 \newcommand{\newAddress}[3]{%
 	\expandafter\newcommand\csname address#3Street\endcsname{#1}%
 	\expandafter\newcommand\csname address#3PLZ\endcsname{#2}%
 	\expandafter\newcommand\csname address#3Place\endcsname{#3}%
 }
-\usepackage{xkeyval}
-\makeatletter
-\define@key{newNamedAddress}{name}{\def\name{#1}}
-\define@key{newNamedAddress}{street}{\def\street{#1}}
-\newcommand{\newNamedAddress}[1][]{%
-	\setkeys{newNamedAddress}{#1}{%
-		\newcommand\addressasdfStreet{\street}%
-%		\expandafter\newcommand\csname address\name Street\endcsname{\street}%
-	}%
-}
-\makeatother
-
-\newNamedAddress[name=asdf,street=streetName]
 
 \newAddress{Obernhäuser Str. 16}{75217}{Birkenfeld}
 \newAddress{Löwenberger Str. 2}{10315}{Berlin}
