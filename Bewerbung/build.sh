@@ -16,26 +16,30 @@ function openPdf {
 		echo "PDF ready: $pdf (no display)"
 		return
 	fi
-	viewer="${PDF_VIEWER:-}"
-	if [ -z "$viewer" ]; then
-		for candidate in papers evince okular zathura qpdfview atril xpdf mupdf firefox google-chrome chromium
-		do
-			if command -v "$candidate" >/dev/null 2>&1; then
-				viewer="$candidate"
-				break
-			fi
-		done
+	if [ -n "${PDF_VIEWER:-}" ]; then
+		if command -v "$PDF_VIEWER" >/dev/null 2>&1; then
+			"$PDF_VIEWER" "$pdf" >/dev/null 2>&1 &
+		else
+			echo "PDF ready: $pdf (viewer '$PDF_VIEWER' not found)"
+		fi
+		return
 	fi
-	if [ -z "$viewer" ] && command -v xdg-open >/dev/null 2>&1; then
-		viewer="xdg-open"
+	if command -v xdg-open >/dev/null 2>&1; then
+		xdg-open "$pdf" >/dev/null 2>&1 &
+		return
 	fi
-	if [ -z "$viewer" ]; then
-		echo "PDF ready: $pdf (no pdf viewer found)"
-	elif ! command -v "$viewer" >/dev/null 2>&1; then
-		echo "PDF ready: $pdf (viewer '$viewer' not found)"
-	else
-		"$viewer" "$pdf" >/dev/null 2>&1 &
+	if command -v gio >/dev/null 2>&1; then
+		gio open "$pdf" >/dev/null 2>&1 &
+		return
 	fi
+	for candidate in papers evince okular zathura qpdfview atril mupdf xpdf
+	do
+		if command -v "$candidate" >/dev/null 2>&1; then
+			"$candidate" "$pdf" >/dev/null 2>&1 &
+			return
+		fi
+	done
+	echo "PDF ready: $pdf (no pdf viewer found)"
 }
 
 cd Anhang
