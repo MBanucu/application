@@ -12,11 +12,27 @@ function compileLanguage {
 
 function openPdf {
 	pdf=$1
-	viewer="${PDF_VIEWER:-evince}"
-	if ! command -v "$viewer" >/dev/null 2>&1; then
-		echo "PDF ready: $pdf (viewer '$viewer' not found)"
-	elif [ -z "${DISPLAY:-}${WAYLAND_DISPLAY:-}" ]; then
+	if [ -z "${DISPLAY:-}${WAYLAND_DISPLAY:-}" ]; then
 		echo "PDF ready: $pdf (no display)"
+		return
+	fi
+	viewer="${PDF_VIEWER:-}"
+	if [ -z "$viewer" ]; then
+		for candidate in papers evince okular zathura qpdfview atril xpdf mupdf firefox google-chrome chromium
+		do
+			if command -v "$candidate" >/dev/null 2>&1; then
+				viewer="$candidate"
+				break
+			fi
+		done
+	fi
+	if [ -z "$viewer" ] && command -v xdg-open >/dev/null 2>&1; then
+		viewer="xdg-open"
+	fi
+	if [ -z "$viewer" ]; then
+		echo "PDF ready: $pdf (no pdf viewer found)"
+	elif ! command -v "$viewer" >/dev/null 2>&1; then
+		echo "PDF ready: $pdf (viewer '$viewer' not found)"
 	else
 		"$viewer" "$pdf" >/dev/null 2>&1 &
 	fi
