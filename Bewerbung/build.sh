@@ -10,6 +10,18 @@ function compileLanguage {
 	cd ../../..
 }
 
+function openPdf {
+	pdf=$1
+	viewer="${PDF_VIEWER:-evince}"
+	if ! command -v "$viewer" >/dev/null 2>&1; then
+		echo "PDF ready: $pdf (viewer '$viewer' not found)"
+	elif [ -z "${DISPLAY:-}${WAYLAND_DISPLAY:-}" ]; then
+		echo "PDF ready: $pdf (no display)"
+	else
+		"$viewer" "$pdf" >/dev/null 2>&1 &
+	fi
+}
+
 cd Anhang
 latexmk -pdf document
 cd ..
@@ -28,5 +40,5 @@ do
 	pdftkOutputDir="build/$language"
 	mkdir -p "$pdftkOutputDir"
 	pdftk "Anschreiben/build/$language/document.pdf" "Deckblatt/build/"$language"/document.pdf" "Lebenslauf/build/$language/document.pdf" Anhang/document.pdf cat output "$pdftkOutputDir/${!pdfname}"
-	xfce4-terminal --command "evince \"build/$language/${!pdfname}\""
+	openPdf "$pdftkOutputDir/${!pdfname}"
 done
