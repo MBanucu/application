@@ -79,6 +79,7 @@
 \newcommand{\genderReceiver}{Mr.}
 \newcommand{\dear}{Dear}
 \subimport{./receiver/generated/}{parameters.tex}
+\providecommand{\addressReceiver}{\mbox{}}
 
 \usepackage{xparse}
 \ExplSyntaxOn
@@ -93,10 +94,3 @@
 		\application_joinList:VVVn {#1}{#2}{#3}{#4}
 	}
 \ExplSyntaxOff
-
-\newcommand{\addressReceiver}{%
-	\joinList{\companyReceiver}{\empty}{\empty}{\\}
-	\joinList{\genderReceiver}{\prenameReceiver}{\surnameReceiver}{\\}
-	\joinList{\addressStreetReceiver}{\empty}{\empty}{\\}
-	\joinList{\addressPLZReceiver}{\addressPlaceReceiver}{\empty}{}
-}
